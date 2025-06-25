@@ -1,5 +1,5 @@
-import { getPostByID, getPosts } from "../api/posts";
-import getTodos, { getTodosByUser } from "../api/todos";
+import { getPostByID } from "../api/posts";
+import { getTodosByUser } from "../api/todos";
 import { User, getUser } from "../api/users";
 import { PostCard, SkeletonPostCard } from "./PostCard";
 import { Skeleton, SkeletonList } from "./Skeleton";

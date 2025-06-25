@@ -1,5 +1,3 @@
-import { getUser } from "@/app/api/users";
-import { SimpleSkeletonText } from "@/app/components/Skeleton";
 import UserInfo, {
   UserInfoSkeleton,
   UserPost,
@@ -7,7 +5,7 @@ import UserInfo, {
   UserTodos,
   UserTodosSkeleton,
 } from "@/app/components/UserInfo";
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 
 export default async function page({
   params: { userID },

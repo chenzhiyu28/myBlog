@@ -27,7 +27,7 @@ export async function getUsers() {
 }
 
 export async function getUser(userId: string|number) {
-  wait(1000);
+  await wait(1000);
   const res = await fetch(`${process.env.API_URL}/users/${userId}`);
   const data = await res.json();
   return data as User;
