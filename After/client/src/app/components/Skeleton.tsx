@@ -41,3 +41,13 @@ export function SkeletonList({
     </>
   );
 }
+
+export function SimpleSkeletonText({
+  resolve,
+  children,
+}: {
+  resolve: Promise<any>;
+  children: React.ReactNode;
+}) {
+  return <Suspense fallback={<Skeleton short inline />}>{children}</Suspense>;
+}

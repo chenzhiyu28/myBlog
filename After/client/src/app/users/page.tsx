@@ -1,72 +1,30 @@
+import Link from "next/link";
 import React from "react";
+import { getUsers } from "../api/users";
 
-export default function Userpage() {
+export default async function Userpage() {
+  const users = await getUsers();
+
   return (
     <>
-      <h1 className="page-title">
-        <SimpleSkeletonText resolve={userPromise}>
-          {(user) => user.name}
-        </SimpleSkeletonText>
-      </h1>
-      <div className="page-subtitle">
-        <SimpleSkeletonText resolve={userPromise}>
-          {(user) => user.email}
-        </SimpleSkeletonText>
-      </div>
-      <div>
-        <b>Company:</b>{" "}
-        <SimpleSkeletonText resolve={userPromise}>
-          {(user) => user.company.name}
-        </SimpleSkeletonText>
-      </div>
-      <div>
-        <b>Website:</b>{" "}
-        <SimpleSkeletonText resolve={userPromise}>
-          {(user) => user.website}
-        </SimpleSkeletonText>
-      </div>
-      <div>
-        <b>Address:</b>{" "}
-        <SimpleSkeletonText resolve={userPromise}>
-          {(user) => `${user.address.street} ${user.address.suite}
-        ${user.address.city} ${user.address.zipcode}`}
-        </SimpleSkeletonText>
-      </div>
-
-      <h3 className="mt-4 mb-2">Posts</h3>
+      <h1 className="page-title">Users</h1>
       <div className="card-grid">
-        <Suspense
-          fallback={
-            <SkeletonList amount={3}>
-              <SkeletonPostCard />
-            </SkeletonList>
-          }
-        >
-          <Await resolve={postsPromise}>
-            {(posts) =>
-              posts.map((post) => <PostCard key={post.id} {...post} />)
-            }
-          </Await>
-        </Suspense>
+        {users.map((user) => (
+          <div key={user.id} className="card">
+            <div className="card-header">{user.name}</div>
+            <div className="card-body">
+              <div>{user.company.name}</div>
+              <div>{user.website}</div>
+              <div>{user.email}</div>
+            </div>
+            <div className="card-footer">
+              <Link className="btn" href={`users/${user.id.toString()}`}>
+                View
+              </Link>
+            </div>
+          </div>
+        ))}
       </div>
-      <h3 className="mt-4 mb-2">Todos</h3>
-      <ul>
-        <Suspense
-          fallback={
-            <SkeletonList amount={5}>
-              <li>
-                <Skeleton short />
-              </li>
-            </SkeletonList>
-          }
-        >
-          <Await resolve={todosPromise}>
-            {(todos) =>
-              todos.map((todo) => <TodoItem key={todo.id} {...todo} />)
-            }
-          </Await>
-        </Suspense>
-      </ul>
     </>
   );
 }
