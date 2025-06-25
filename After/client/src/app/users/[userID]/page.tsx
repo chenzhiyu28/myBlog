@@ -4,6 +4,8 @@ import UserInfo, {
   UserInfoSkeleton,
   UserPost,
   UserPostSkeleton,
+  UserTodos,
+  UserTodosSkeleton,
 } from "@/app/components/UserInfo";
 import React, { Suspense } from "react";
 
@@ -19,30 +21,19 @@ export default async function page({
       </Suspense>
 
       <Suspense fallback={<UserPostSkeleton />}>
-        <UserPost />
+        <UserPost id={userID} />
       </Suspense>
+
+      <ul>
+        <Suspense fallback={<UserTodosSkeleton />}>
+          <UserTodos id={userID} />
+        </Suspense>
+      </ul>
     </>
   );
 }
 
 {
-  /* 
-<h3 className="mt-4 mb-2">Todos</h3>
-<ul>
-  <Suspense
-    fallback={
-      <SkeletonList amount={5}>
-        <li>
-          <Skeleton short />
-        </li>
-      </SkeletonList>
-    }
-  >
-    <Await resolve={todosPromise}>
-      {(todos) =>
-        todos.map((todo) => <TodoItem key={todo.id} {...todo} />)
-      }
-    </Await>
-  </Suspense>
-</ul> */
+  /*
+   */
 }

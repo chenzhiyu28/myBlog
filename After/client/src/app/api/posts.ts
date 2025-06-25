@@ -10,9 +10,9 @@ export async function getPosts() {
   return data as Post[];
 }
 
-export async function getPostByID(postId: number) {
-  const res = await fetch(`${process.env.API_URL}/post/${postId}`);
+export async function getPostByID(postId: number|string) {
+  const res = await fetch(`${process.env.API_URL}/posts?userId=${postId}`);
   const data = await res.json();
-  return data as Post;
+  return data as Post[];
 }
 

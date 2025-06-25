@@ -1,7 +1,9 @@
-import { getPosts } from "../api/posts";
+import { getPostByID, getPosts } from "../api/posts";
+import getTodos, { getTodosByUser } from "../api/todos";
 import { User, getUser } from "../api/users";
 import { PostCard, SkeletonPostCard } from "./PostCard";
 import { Skeleton, SkeletonList } from "./Skeleton";
+import { TodoItem } from "./TodoItem";
 
 export default async function UserInfo({ id }: { id: string | number }) {
   const user: User = await getUser(id);
@@ -47,8 +49,9 @@ export function UserInfoSkeleton() {
   );
 }
 
-export async function UserPost() {
-  const posts = await getPosts();
+export async function UserPost({ id }: { id: string | number }) {
+  const posts = await getPostByID(id);
+  console.log(posts);
 
   return (
     <>
@@ -67,6 +70,32 @@ export function UserPostSkeleton() {
     <>
       <SkeletonList amount={3}>
         <SkeletonPostCard />
+      </SkeletonList>
+    </>
+  );
+}
+
+export async function UserTodos({ id }: { id: string | number }) {
+  const todos = await getTodosByUser(id);
+
+  return (
+    <>
+      <h3 className="mt-4 mb-2">Todos</h3>
+      {todos.map((todo) => (
+        <TodoItem key={todo.id} {...todo} />
+      ))}
+    </>
+  );
+}
+
+export function UserTodosSkeleton() {
+  return (
+    <>
+      <h3 className="mt-4 mb-2">Todos</h3>
+      <SkeletonList amount={5}>
+        <li>
+          <Skeleton short />
+        </li>
       </SkeletonList>
     </>
   );
