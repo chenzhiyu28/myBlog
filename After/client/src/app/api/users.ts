@@ -26,9 +26,10 @@ export async function getUsers() {
   return data as User[];
 }
 
-export async function getUser(userId: string|number) {
+export async function getUserById(userId: string|number) {
   await wait(1000);
-  const res = await fetch(`${process.env.API_URL}/users/${userId}`);
+  const url = `${process.env.API_URL}/users/${userId}`;
+  const res = await fetch(url);
   const data = await res.json();
   return data as User;
 }

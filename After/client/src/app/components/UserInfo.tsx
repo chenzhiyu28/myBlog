@@ -1,12 +1,12 @@
-import { getPostByID } from "../api/posts";
+import { getPostByUserID } from "../api/posts";
 import { getTodosByUser } from "../api/todos";
-import { User, getUser } from "../api/users";
+import { User, getUserById } from "../api/users";
 import { PostCard, SkeletonPostCard } from "./PostCard";
 import { Skeleton, SkeletonList } from "./Skeleton";
 import { TodoItem } from "./TodoItem";
 
 export default async function UserInfo({ id }: { id: string | number }) {
-  const user: User = await getUser(id);
+  const user: User = await getUserById(id);
 
   return (
     <>
@@ -49,9 +49,8 @@ export function UserInfoSkeleton() {
   );
 }
 
-export async function UserPost({ id }: { id: string | number }) {
-  const posts = await getPostByID(id);
-  console.log(posts);
+export async function UserPost({ id: userID }: { id: string | number }) {
+  const posts = await getPostByUserID(userID);
 
   return (
     <>
