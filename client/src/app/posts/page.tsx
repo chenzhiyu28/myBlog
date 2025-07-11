@@ -6,12 +6,12 @@ import { SkeletonList } from "@/components/Skeleton";
 import { Suspense } from "react";
 import Form from "next/form";
 
-export default function PostsPage({
+export default async function PostsPage({
   searchParams,
 }: {
-  searchParams: { query: string; userID: string };
+  searchParams: Promise<{ query?: string; userId?: string }>;
 }) {
-  const { query = "", userID = "" } = searchParams;
+  const { query = "", userId: userID = "" } = await searchParams;
 
   return (
     <>
@@ -23,6 +23,7 @@ export default function PostsPage({
             <label htmlFor="query">Query</label>
             <input type="search" name="query" id="query" defaultValue={query} />
           </FormGroup>
+
           <FormGroup>
             <label htmlFor="userId">Author</label>
             <select name="userId" id="userId" defaultValue={userID}>
@@ -31,27 +32,29 @@ export default function PostsPage({
               </Suspense>
             </select>
           </FormGroup>
+
           <button className="btn">Filter</button>
         </div>
       </Form>
 
       <div className="card-grid">
         <Suspense
+          key={`${query}-${userID}`}
           fallback={
             <SkeletonList amount={6}>
               <SkeletonPostCard />
             </SkeletonList>
           }
         >
-          <PostGrid />
+          <PostGrid userId={userID} query={query} />
         </Suspense>
       </div>
     </>
   );
 }
 
-async function PostGrid() {
-  const posts = await getPosts();
+async function PostGrid({ userId, query }: { userId: string; query: string }) {
+  const posts = await getPosts({ userId, query });
 
   return posts.map((post) => <PostCard key={post.id} {...post} />);
 }
