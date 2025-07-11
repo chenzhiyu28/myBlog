@@ -4,21 +4,28 @@ import { FormGroup } from "@/components/FormGroup";
 import { PostCard, SkeletonPostCard } from "@/components/PostCard";
 import { SkeletonList } from "@/components/Skeleton";
 import { Suspense } from "react";
+import Form from "next/form";
 
-export default function PostsPage() {
+export default function PostsPage({
+  searchParams,
+}: {
+  searchParams: { query: string; userID: string };
+}) {
+  const { query = "", userID = "" } = searchParams;
+
   return (
     <>
       <h1 className="page-title">Posts</h1>
 
-      <form className="form mb-4">
+      <Form action="" className="form mb-4">
         <div className="form-row">
           <FormGroup>
             <label htmlFor="query">Query</label>
-            <input type="search" name="query" id="query" />
+            <input type="search" name="query" id="query" defaultValue={query} />
           </FormGroup>
           <FormGroup>
             <label htmlFor="userId">Author</label>
-            <select name="userId" id="userId">
+            <select name="userId" id="userId" defaultValue={userID}>
               <Suspense fallback={<option value="">Loading...</option>}>
                 <UserSelect />
               </Suspense>
@@ -26,7 +33,7 @@ export default function PostsPage() {
           </FormGroup>
           <button className="btn">Filter</button>
         </div>
-      </form>
+      </Form>
 
       <div className="card-grid">
         <Suspense
