@@ -1,7 +1,7 @@
-import { getTodos } from "@/api/todos"
-import { Skeleton, SkeletonList } from "@/components/Skeleton"
-import { TodoItem } from "@/components/TodoItem"
-import { Suspense } from "react"
+import { getTodos } from "@/db/todos";
+import { Skeleton, SkeletonList } from "@/components/Skeleton";
+import { TodoItem } from "@/components/TodoItem";
+import { Suspense } from "react";
 
 export default function TodosPage() {
   return (
@@ -21,11 +21,11 @@ export default function TodosPage() {
         </Suspense>
       </ul>
     </>
-  )
+  );
 }
 
 async function TodosList() {
-  const todos = await getTodos()
+  const todos = await getTodos();
 
-  return todos.map(todo => <TodoItem key={todo.id} {...todo} />)
+  return todos.map((todo) => <TodoItem key={todo.id} {...todo} />);
 }
