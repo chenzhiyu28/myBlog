@@ -5,6 +5,7 @@ import { PostCard, SkeletonPostCard } from "@/components/PostCard";
 import { SkeletonList } from "@/components/Skeleton";
 import { Suspense } from "react";
 import Form from "next/form";
+import { Metadata } from "next";
 
 export default async function PostsPage({
   searchParams,
@@ -12,6 +13,11 @@ export default async function PostsPage({
   searchParams: Promise<{ query?: string; userId?: string }>;
 }) {
   const { query = "", userId: userID = "" } = await searchParams;
+
+  const metadata: Metadata = {
+    title: "postPage",
+    description: "Post page description",
+  };
 
   return (
     <>
