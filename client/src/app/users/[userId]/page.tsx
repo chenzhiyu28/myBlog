@@ -6,6 +6,12 @@ import { Skeleton, SkeletonList } from "@/components/Skeleton";
 import { TodoItem } from "@/components/TodoItem";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "userPage",
+  description: "users page",
+};
 
 export default async function UserPage({
   params,
