@@ -5,6 +5,12 @@ import { Skeleton, SkeletonList } from "@/components/Skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "post page",
+  description: "the post page",
+};
 
 export default async function PostPage({
   params,
