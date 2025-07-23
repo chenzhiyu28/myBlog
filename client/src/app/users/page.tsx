@@ -1,5 +1,11 @@
 import { getUsers } from "@/db/users";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "users",
+  description: "user page",
+};
 
 export default async function UsersPage() {
   const users = await getUsers();
